@@ -63,6 +63,11 @@ dependencies {
     //viewmodel
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation("androidx.compose.material:material-icons-extended")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
