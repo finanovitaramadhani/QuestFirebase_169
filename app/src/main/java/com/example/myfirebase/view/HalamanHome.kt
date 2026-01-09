@@ -44,7 +44,9 @@ import com.example.myfirebase.viewmodel.StatusUiSiswa
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    //edit 1.1 : tambahkan parameter navigateToItemEntry
     navigateToItemEntry: () -> Unit,
+    //edit 2.4 : tambahkan parameter navigateToItemUpdate
     navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
@@ -61,7 +63,7 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                /* Edit 1.2 : event onClick */
+                //edit 1.2 : event onClick
                 onClick = navigateToItemEntry,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
@@ -70,7 +72,6 @@ fun HomeScreen(
                     imageVector = Icons.Default.Add,
                     contentDescription = stringResource(R.string.entry_siswa)
                 )
-
             }
         }
     ) { innerPadding ->
@@ -88,6 +89,7 @@ fun HomeScreen(
 @Composable
 fun HomeBody(
     statusUiSiswa: StatusUiSiswa,
+    //edit 2.3 : tambahkan parameter onSiswaClick
     onSiswaClick: (Int) -> Unit,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier
@@ -98,8 +100,9 @@ fun HomeBody(
     ) {
         when (statusUiSiswa) {
             is StatusUiSiswa.Loading -> LoadingScreen()
+            //edit 2.5 : tambahkan event onSiswaClick
             is StatusUiSiswa.Success -> DaftarSiswa(
-                itemSiswa = statusUiSiswa.siswa,
+                listSiswa = statusUiSiswa.siswa,
                 onSiswaClick = { onSiswaClick(it.id.toInt()) }
             )
             is StatusUiSiswa.Error -> ErrorScreen(
@@ -120,7 +123,10 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
+fun ErrorScreen(
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -135,17 +141,18 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
 
 @Composable
 fun DaftarSiswa(
-    itemSiswa: List<Siswa>,
+    listSiswa: List<Siswa>,
+    //edit 2.7 : tambahkan parameter onSiswaClick
     onSiswaClick: (Siswa) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
-        items(items = itemSiswa, key = { it.id }) {
-                person ->
+        items(items = listSiswa, key = { it.id }) { person ->
             ItemSiswa(
                 siswa = person,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
+                    //edit 2.2 : jadikan itemsiswa menjadi clickable
                     .clickable { onSiswaClick(person) }
             )
         }
@@ -164,11 +171,10 @@ fun ItemSiswa(
         Column(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
             verticalArrangement = Arrangement.spacedBy(
-                dimensionResource(id = R.dimen.padding_small))
+                dimensionResource(id = R.dimen.padding_small)
+            )
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = siswa.nama,
                     style = MaterialTheme.typography.titleLarge
