@@ -14,6 +14,7 @@ coroutines-play-services = "1.8.1"
 material3 = "1.4.0"
 runtime = "1.10.0"
 lifecycleViewmodelKtx = "2.10.0"
+lifecycleViewmodelSavedstate = "2.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +44,7 @@ coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-lifecycle-viewmodel-savedstate = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "lifecycleViewmodelSavedstate" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
